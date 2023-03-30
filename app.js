@@ -1,4 +1,4 @@
-const express = requre("express");
+const express = require("express");
 const app = express();
 const { MongoClient } = require("mongodb");
 
@@ -29,89 +29,29 @@ app.get("/users", async (req, res) => {
     });
   }
 });
-app.post("/users", async (req, res) => {
-  try {
-    const { firstname, lastname, username, password } = req.body;
+// app.post("/users", async (req, res) => {
+//   try {
+//     const { firstname, lastname, username, password } = req.body;
 
-    const user = await client.create({
-      firstname,
-      lastname,
-      username,
-      password,
-    });
+//     const user = await client.create({
+//       firstname,
+//       lastname,
+//       username,
+//       password,
+//     });
 
-    res.json({
-      status: "success",
-      data: { user },
-    });
-  } catch (error) {
-    console.log(error);
+//     res.json({
+//       status: "success",
+//       data: { user },
+//     });
+//   } catch (error) {
+//     console.log(error);
 
-    res.json({
-      status: "error",
-      message: "something went wrong",
-    });
-  }
-});
-
-app.get("/users/:userId", async (req, res) => {
-  try {
-    const { userId } = req.params;
-    const user = await client.findById(userId);
-
-    res.json({
-      status: "success",
-      data: { user },
-    });
-  } catch (error) {
-    res.json({
-      status: "error",
-      message: "something went wrong",
-    });
-  }
-});
-
-app.patch("/users/:userId", async (req, res) => {
-  try {
-    const { userId } = req.params;
-    const modifedInfo = req.body;
-
-    const result = await client.findByIdAndUpdate(userId, modifedInfo, {
-      new: true,
-    });
-
-    res.json({
-      status: "success",
-      data: { result },
-    });
-  } catch (error) {
-    console.log(error);
-
-    res.json({
-      status: "error",
-      message: "something went wrong",
-    });
-  }
-});
-
-app.delete("/users/:userId", async (req, res) => {
-  try {
-    const { userId } = req.params;
-
-    const result = await User.findByIdAndDelete(userId);
-
-    res.json({
-      status: "success",
-      data: { result },
-    });
-  } catch (error) {
-    console.log(error);
-
-    res.json({
-      status: "error",
-      message: "something went wrong",
-    });
-  }
-});
+//     res.json({
+//       status: "error",
+//       message: "something went wrong",
+//     });
+//   }
+// });
 
 app.listen(port, host, () => console.log(`Listening on ${host}:${port} ...`));
